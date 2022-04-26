@@ -22,7 +22,7 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: darkgray;
+  background: #a9a9a9;
 }
 
 /* Handle */

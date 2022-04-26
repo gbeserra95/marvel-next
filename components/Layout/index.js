@@ -2,6 +2,8 @@ import Head from "next/head"
 import Navbar from "../Navbar"
 import Footer from "../Footer"
 
+import { Main } from "./styles"
+
 function Layout({ children }){
     return (
         <>
@@ -10,9 +12,9 @@ function Layout({ children }){
                 <title>Marvel Next</title>
             </Head>
             <Navbar />
-            <main>
+            <Main>
                 {children}
-            </main>
+            </Main>
             <Footer />
         </>
     )

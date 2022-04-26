@@ -7,4 +7,5 @@ export const Container = styled.footer`
     height: 52px;
     background-color: black;
     color: white;
+    font-size: 12px;
 `

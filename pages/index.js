@@ -1,3 +1,4 @@
+import Link from "next/link"
 import styles from "../styles/Home.module.css"
 
 function Home() {
@@ -5,8 +6,10 @@ function Home() {
     <div className={styles.homeContainer}>
       <div className={styles.homeBox}>
         <h1>Welcome to the Multiverse of Next!</h1>
-        <p>Explore everything about your favorite characters!</p>
-        <button>Click here to discover!</button>
+        <p>Explore everything about your favorite heroes and, why not, villains?</p>
+        <Link href="/characters">
+          <a>Click to discover</a>
+        </Link>
       </div>
     </div>
   )

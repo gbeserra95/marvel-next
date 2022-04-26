@@ -34,16 +34,15 @@
     margin: 0;
 }
 
-.homeBox button {
+.homeBox a {
     padding: 8px;
     background-color: rgba(236, 29, 36, 100%);
     color: white;
     border: none;
     border-radius: 8px;
-    font-weight: bold;
     cursor: pointer;
 }
-.homeBox button:hover{
+.homeBox a:hover{
     background-color: rgba(236, 29, 36, 80%);
     transition: 0.2s;
 }
