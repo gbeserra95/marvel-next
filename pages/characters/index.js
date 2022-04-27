@@ -1,13 +1,24 @@
-import { loadCharacters } from "../api/marvelAPI"
+import { Pagination } from "@mui/material"
+import { charactersData } from "../api/marvelAPI"
 
 import SearchBox from "../../components/SearchBox"
+import Card from "../../components/Card"
 import styles from "../../styles/Characters.module.css"
 
-function Characters(props) {
+function Characters({data}) {
+    const offset = 20
+
     return (
         <section className={styles.container}>
             <SearchBox />
-            {props.characters.map(character => <p key={character.id}>{character.id}: {character.name}</p>)}
+            <div className={styles.gallery}>
+                {data.results.map(character => <Card character={character} />)}
+            </div>
+            <div className={styles.pagination}>
+                <Pagination 
+                    count={parseInt(data.total/offset)}
+                />
+            </div>
         </section>
     )
 }
@@ -15,11 +26,11 @@ function Characters(props) {
 export default Characters
 
 export async function getStaticProps() {
-    const characters = await loadCharacters()
+    const data = await charactersData()
 
     return {
         props: {
-            characters
+            data
         }
     }
 }
