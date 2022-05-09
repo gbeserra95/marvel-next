@@ -1,12 +1,15 @@
 import Layout from '../components/Layout'
-
+import theme from '../theme'
+import { ThemeProvider } from '@mui/system'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ThemeProvider>
   )
 }
 

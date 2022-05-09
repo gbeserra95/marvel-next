@@ -1,42 +1,40 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.header`
+export const Wrapper = styled.header`
+    margin: 0 auto;
+    background-color: ${props => props.theme.palette.text.main};
+    width: 100vw;
+`
+
+export const Navigation = styled.nav`
     display: flex;
-    justify-content: center;
-    background-color: #000000;
+    justify-content: space-between;
     width: 100%;
-    height: 52px;
+    height: 80px;
+    align-items: center;
 
-    nav {
+    img {
+        cursor: pointer;
+    }
+
+    ul {
         display: flex;
-        justify-content: space-between;
-        margin: 0 32px;
-        width: min(100%, 1092px);
+        gap: 2rem;
         align-items: center;
+        list-style: none;
+        color: white;
+    }
 
-        img {
-            cursor: pointer;
-        }
-    
-        ul {
-            display: flex;
-            gap: 1em;
-            align-items: center;
-            list-style: none;
-            color: white;
-        }
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        cursor: pointer;
+        transition: .2s;
+    }
 
-        li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            cursor: pointer;
-            transition: .2s;
-        }
-
-        li:hover {
-            color: lightgrey;
-        }
+    li:hover {
+        color: lightgrey;
     }
 `
