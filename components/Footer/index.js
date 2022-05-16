@@ -11,7 +11,7 @@ function Footer() {
         <S.Footer>
             <Container maxWidth="lg">
                 <S.Wrapper>
-                    <Typography variant="p" color="secondary">&copy; 2022 - Designed and built by Gabriel Beserra</Typography>
+                    <Typography variant="p" color="secondary" margin={0}>&copy; 2022 - Designed and built by Gabriel Beserra</Typography>
                     <div>
                         <Link href="https://www.linkedin.com/in/-gabrielbeserra/" passHref>
                             <S.Icon target="_blank"><LinkedInIcon /></S.Icon>

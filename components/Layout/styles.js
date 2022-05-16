@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
+import { Container } from "@mui/material"
+import styled from "@emotion/styled"
 
-export const Main = styled.main`
-    display: flex;
-    width: 100%;
-    justify-content: center;
+export const Main = styled(Container)`
+    background-color: #202020;
 `

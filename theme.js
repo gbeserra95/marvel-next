@@ -20,7 +20,7 @@ theme = createTheme(theme,
                 main: '#ec1d24'
             },
             secondary: {
-                main: '#ffffff',
+                main: '#fffefd',
             },
             text: {
                 main: '#000000',
@@ -31,6 +31,7 @@ theme = createTheme(theme,
                 fontSize: "36px",
                 fontWeight: "bold",
                 lineHeight: "54px",
+                margin: "0 auto",
                 [theme.breakpoints.down('md')]: {
                     fontSize: "24px",
                     lineHeight: "36px",
@@ -40,6 +41,7 @@ theme = createTheme(theme,
                 fontSize: "24px",
                 lineHeight: "36px",
                 fontWeight: "bold",
+                margin: "0 auto",
                 [theme.breakpoints.down('md')]: {
                     fontSize: "18px",
                     lineHeight: "27px",
@@ -48,6 +50,7 @@ theme = createTheme(theme,
             p: {
                 fontSize: "14px",
                 lineHeight: "21px",
+                margin: "0 auto",
             }
         }
     }

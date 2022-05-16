@@ -6,8 +6,10 @@ export const NewButton = styled(Button)`
     color: ${props => props.theme.palette.secondary.main};
     background-color: ${props => props.theme.palette.primary.main};
     margin: 2rem;
+    transition: 0.2s;
 
     &:hover {
-        background-color: ${props => props.theme.palette.text.main};
+        background-color: ${props => props.theme.palette.primary.main};
+        filter: brightness(80%);
     }
 `

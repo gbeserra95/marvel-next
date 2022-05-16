@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.header`
     margin: 0 auto;
     background-color: ${props => props.theme.palette.text.main};
-    width: 100vw;
+    width: 100%;
 `
 
 export const Navigation = styled.nav`

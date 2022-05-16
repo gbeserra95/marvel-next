@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 
 export const Footer = styled.footer`
     margin: 0 auto;
-    width: 100vw;
+    width: 100%;
     background-color: black;
     color: white;
 `
