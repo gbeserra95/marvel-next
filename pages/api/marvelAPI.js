@@ -8,8 +8,8 @@ const hash = md5(timestamp+privateKey+publicKey)
 
 export const limit = 24
 
-export async function searchCharacters(offset) {
-  const res = await fetch(`${base}?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`)
+export async function searchCharacters(page) {
+  const res = await fetch(`${base}?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${limit * (page - 1)}`)
   const data = await res.json()
 
   return data.data

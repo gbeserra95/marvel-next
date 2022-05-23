@@ -1,76 +1,81 @@
-import { useState } from "react"
-import { useQuery } from "react-query"
+import React, { useState, useEffect } from "react"
+import { useRouter } from "next/router"
+import { dehydrate, QueryClient, useQuery } from "react-query"
 import { searchCharacters, searchCharacterByName } from "../api/marvelAPI"
 import useDebounce from "../../hooks/useDebounce"
 
-import { Container, Grid, Typography } from "@mui/material"
+import { Container, Grid, Pagination } from "@mui/material"
 
-import Content from "../../components/Content"
 import Card from "../../components/Card"
+import Content from "../../components/Content"
 import StyledTextField from "../../components/StyledTextField"
 
-function CharactersPage({ defaultData }) {
-    const [searchValue, setSearchValue] = useState("")
-    const debouncedSearchValue = useDebounce(searchValue, 300)
+function Characters(props) {    
+    const router = useRouter()
+    const [page, setPage] = useState(parseInt(router.query.page) || 1)
+    useEffect(() => {
+        // some browsers (like safari) may require a timeout to delay calling this
+        // function after a page has loaded; otherwise, it may not update the position
+        window.scrollTo(0, 0);
+      }, [router]);
 
-    const { isLoading, isError, isSuccess, data } = useQuery(
-        ["searchCharacters", debouncedSearchValue],
-        () => searchCharacterByName(debouncedSearchValue),
+    const { data } = useQuery(
+        ["characters", page],
+        async () => fetch(`/api/characters?page=${page}`)
+            .then(result => result.json()),
         {
-            enabled: debouncedSearchValue.length > 0
+            keepPreviousData: true,
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
         }
     )
-
-    function renderSearchResult() {
-        if(isLoading)
-            return <Typography variant="h2" color="secondary">Loading...</Typography>
-        
-        if(isError)
-            return <Typography variant="h2" color="secondary">This code is not working! 😣 <br/> Go see Doctor Strange so he can make a spell to fix it!</Typography>
-    
-        if(isSuccess) {
-            if(data.count === 0)
-                return <Typography variant="h2" color="secondary">Your character is probably lost in some universe. We couldn't find them. 😣 </Typography>
-            
-            return (
-                data.results.map(character => 
-                    <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
-                        <Card character={character} key={character.id}/>
-                    </Grid>
-                )
-            )
-        }
-
-        return <></>
+    console.log(data)
+    function handlePaginationChange(e, value) {
+        setPage(value)
+        router.push(`characters/?page=${value}`, undefined, { shallow: true})
     }
 
     return (
         <Container maxWidth="lg">
-            <StyledTextField
-                type="text"
-                onChange={(event) => setSearchValue(event.target.value)}
-                value={searchValue.toUpperCase()}
+            <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
+                {React.Children.toArray(
+                    data?.results?.map(character =>
+                        <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
+                            <Card character={character} key={character.id} />
+                        </Grid>
+                    )
+                )}
+            </Grid>
+            <Pagination
+                count={parseInt(data?.total / data?.limit)}
+                variant='outlined'
+                color='primary'
+                className='pagination'
+                page={page}
+                onChange={handlePaginationChange}
             />
-                {
-                    searchValue.length != 0 && 
-                    <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
-                        {renderSearchResult()}
-                    </Grid>
-                }
-                {
-                    searchValue.length === 0 && <Content defaultData={defaultData} />
-                }
-           
         </Container>
     )
 }
 
-export default CharactersPage
+export default Characters
 
-export async function getStaticProps() {
-    const defaultData = await searchCharacters(0)
+export async function getServerSideProps(context) {
+    let page = 1
+    if (context.query.page) {
+        page = parseInt(context.query.page)
+    }
+    const queryClient = new QueryClient()
+    await queryClient.prefetchQuery(
+        ["characters", page],
+        async () => 
+            await fetch(`/api/characters?page=${page}`)
+                .then(result => result.json())
+    )
 
     return {
-        props: {defaultData}
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
     }
 }
