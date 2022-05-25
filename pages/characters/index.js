@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { dehydrate, QueryClient, useQuery } from "react-query"
-import useDebounce from "../../hooks/useDebounce"
 
-import { Container, Grid, Pagination } from "@mui/material"
+import { Container, Grid } from "@mui/material"
 
-import Card from "../../components/Card"
 import StyledTextField from "../../components/StyledTextField"
-import theme from "../../theme"
+import SearchResult from "../../components/SearchResult"
+import Content from "../../components/Content"
 
-function Characters(props) {    
+function Characters(props) {   
+    // React Query search setup 
+    const [searchValue, setSearchValue] = useState("")
+
+    // React SSR Pagination setup
     const router = useRouter()
     const [page, setPage] = useState(1)
 
@@ -39,54 +42,29 @@ function Characters(props) {
     return (
         <Container maxWidth="lg">
             <Grid item container xs={12}>
-                <StyledTextField />
+                <StyledTextField 
+                    type="text"
+                    onChange={(event) => setSearchValue(event.target.value)}
+                    value={searchValue.toUpperCase()}
+                />
             </Grid>
-            <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
-                {React.Children.toArray(
-                    data?.results?.map(character =>
-                        <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
-                            <Card character={character} key={character.id} />
-                        </Grid>
-                    )
-                )}
-                <Grid item container xs={12} justifyContent="center">
-                    <Pagination
-                        count={parseInt(data?.total / data?.limit)}
-                        variant='outlined'
-                        shape="rounded"
-                        className='pagination'
-                        page={page}
-                        onChange={handlePaginationChange}
-                        sx={{
-                            ".MuiPaginationItem-previousNext": {
-                                backgroundColor: theme.palette.primary.main,
-                                color: theme.palette.secondary.main,
-                                borderColor: theme.palette.primary.main,
-                                '&:hover': {
-                                    filter: "brightness(120%)"
-                                }
-                            },
-                            ".MuiPaginationItem-page": {
-                                backgroundColor: theme.palette.bg.main,
-                                color: theme.palette.secondary.main,
-                                borderColor: theme.palette.primary.main,
-                                transition: "0.2s",
-
-                                '&:hover': {
-                                    backgroundColor: theme.palette.primary.main
-                                }
-                            },
-                            ".Mui-selected": {
-                                backgroundColor: theme.palette.primary.main,
-                                color: theme.palette.secondary.main
-                            },
-                            ".MuiPaginationItem-ellipsis": {
-                                color: theme.palette.secondary.main
-                            }
-                        }}
+            {
+                searchValue.length != 0 && 
+                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
+                    <SearchResult 
+                        searchValue={searchValue}
                     />
                 </Grid>
-            </Grid>
+            }
+            {
+                searchValue.length === 0 && 
+                    <Content
+                        data={data}
+                        page={page}
+                        onChange={handlePaginationChange}
+                    />
+            }
+
         </Container>
     )
 }
@@ -98,6 +76,7 @@ export async function getServerSideProps(context) {
     if (context.query.page) {
         page = parseInt(context.query.page)
     }
+    
     const queryClient = new QueryClient()
     await queryClient.prefetchQuery(
         ["characters", page],

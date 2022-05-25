@@ -1,47 +1,76 @@
-import { useState } from "react"
-import { limit, searchCharacters } from "../../pages/api/marvelAPI"
+import React from "react"
 
-import { Grid, Typography } from "@mui/material"
-import InfiniteScroll from "react-infinite-scroll-component"
-
+import { Grid, Pagination, Typography } from "@mui/material"
 import Card from "../Card"
 
-function Content({ defaultData }) {
-    const [characters, setCharacters] = useState(defaultData.results)
-    const [hasMore, setHasMore] = useState(true)
-    const [offset, setOffset] = useState(limit) // 24 is how many characters I am fetching for call
+import theme from "../../theme"
 
-    async function getMoreCharacters() {
-        const data = await searchCharacters(offset)
-        setCharacters([...characters, ...data.results])
-        setOffset(offset + limit)
-
-        if(data.count < limit)
-            setHasMore(false)
-    }
-    
+function Content({ data, page, onChange }) {
     return (
-        <InfiniteScroll
-            dataLength={characters.length}
-            next={getMoreCharacters}
-            hasMore={hasMore}
-            loader={<Typography variant="h2" color="secondary">Loading...</Typography>}
-        >    
-            <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
-                {characters.map(character => 
-                    <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
-                        <Card character={character} key={character.id} />
+        <>
+            {data ? 
+                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
+                    {React.Children.toArray(
+                        data?.results?.map(character =>
+                            <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
+                                <Card character={character} key={character.id} />
+                            </Grid>
+                        )
+                    )}
+                    <Grid item container xs={12} justifyContent="center">
+                        <Pagination
+                            count={parseInt(data?.total / data?.limit) || 1}
+                            variant='outlined'
+                            shape="rounded"
+                            className='pagination'
+                            page={page}
+                            onChange={onChange}
+                            sx={{
+                                ".MuiPaginationItem-previousNext": {
+                                    backgroundColor: theme.palette.primary.main,
+                                    color: theme.palette.secondary.main,
+                                    borderColor: theme.palette.primary.main,
+                                    '&:hover': {
+                                        filter: "brightness(120%)"
+                                    }
+                                },
+                                ".MuiPaginationItem-page": {
+                                    backgroundColor: theme.palette.bg.main,
+                                    color: theme.palette.secondary.main,
+                                    borderColor: theme.palette.primary.main,
+                                    transition: "0.2s",
+        
+                                    '&:hover': {
+                                        backgroundColor: theme.palette.primary.main
+                                    }
+                                },
+                                ".MuiPaginationItem-page.Mui-selected": {
+                                    backgroundColor: theme.palette.primary.main,
+                                    color: theme.palette.secondary.main,
+                                    '&:hover': {
+                                        backgroundColor: theme.palette.primary.main
+                                    }
+                                },
+                                ".MuiPaginationItem-ellipsis": {
+                                    color: theme.palette.secondary.main
+                                }
+                            }}
+                        />
                     </Grid>
-                )}
-            </Grid>
-        </InfiniteScroll>
+                </Grid>
+                :
+                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
+                    <Typography 
+                        variant="h2" 
+                        color="secondary"
+                    >
+                        Loading...
+                    </Typography>
+                </Grid>
+            }
+        
+        </>
     )
 }
 
 export default Content
-
-/*
-                    <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
-                        <Card character={character} key={character.id} />
-                    </Grid>
-*/

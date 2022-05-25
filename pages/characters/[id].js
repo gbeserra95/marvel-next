@@ -1,50 +1,45 @@
-import { useQuery, QueryClient, dehydrate } from "react-query"
 import { useRouter } from "next/router"
 
-function Character() {
+import {Grid, Typography } from "@mui/material"
+
+function Character({ data }) {
     const router = useRouter()
-    const characterId = router.query?.id
 
-    const { isSuccess, data, isLoading, isError } = useQuery(
-        ["getCharacter", characterId],
-        () => searchCharacterById(characterId),
-        {
-            enabled: characterId.length > 0
-        }
-    )
+    if(router.isFallback) {
+        return(
+            <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
+                <Typography variant="h2" color="secondary">Loading...</Typography>
+            </Grid>
+        )
+    }
     
-    if(isSuccess)
-        return <div>{JSON.stringify(data)}</div>
-
-    if(isLoading)
-        return <div>Loading...</div>
-
-    if(isError)
-        return <div>Something might be lost in the Multiverse! We couldn't find your character.</div>
-
-    return <></>    
+    return <Typography variant="h2" color="secondary">{JSON.stringify(data.results)}</Typography>  
 }
 
 export default Character
 
-export async function getStaticProps(context) {
-    const id = context.params?.id
-    const queryClient = new QueryClient
+export async function getStaticPaths() {
+    const res = await fetch('http://localhost:3000/api/characters/')
+    const data = await res.json()
 
-    await queryClient.prefetchQuery(["getCharacter", id],
-        () => searchCharacterById(id)
-    )
+    const paths = data.results.map((character) => ({
+        params: { id: character.id.toString()}
+    }))
 
     return {
-        props: {
-            dehydratedState: dehydrate(queryClient)
-        }
+        paths,
+        fallback: 'blocking'
     }
 }
 
-export async function getStaticPaths() {
+export async function getStaticProps({ params }) {
+    const res = await fetch(`http://localhost:3000/api/character/${params.id}`)
+    const data = await res.json()
+
     return {
-        paths: [],
-        fallback: "blocking"
+        props: {
+            data
+        },
+        revalidate: 90,
     }
 }
