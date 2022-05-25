@@ -10,6 +10,7 @@ function Background({ children }) {
                     alt="Background with a Spider-Man comic book picture"
                     layout="fill"
                     objectFit="cover"
+                    priority
                 />
             </S.ImageWrapper>
             {children}

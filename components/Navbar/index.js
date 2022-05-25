@@ -9,18 +9,18 @@ function Navbar() {
         <S.Wrapper>
             <Container maxWidth="lg">
                 <S.Navigation>
-                    <Link href="/">
-                        <Image src="/images/logo.png" width="112" height="32" />
+                    <Link href="/" passHref>
+                        <a><Image src="/images/logo.png" width="112" height="32" /></a>
                     </Link>
                     <ul>
-                        <Link href="/">
-                            <li>Home</li>
+                        <Link href="/" passHref>
+                            <a><li>Home</li></a>
                         </Link>
-                        <Link href="/characters">
-                            <li>Characters</li>
+                        <Link href="/characters" passHref>
+                            <a><li>Characters</li></a>
                         </Link>
-                        <Link href="/about">
-                            <li>About</li>
+                        <Link href="/about" passHref>
+                            <a><li>About</li></a>
                         </Link>
                     </ul>
                 </S.Navigation>

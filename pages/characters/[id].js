@@ -1,6 +1,5 @@
 import { useQuery, QueryClient, dehydrate } from "react-query"
 import { useRouter } from "next/router"
-import { searchCharacterById } from "../api/marvelAPI"
 
 function Character() {
     const router = useRouter()

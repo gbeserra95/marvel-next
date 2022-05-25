@@ -20,10 +20,13 @@ theme = createTheme(theme,
                 main: '#ec1d24'
             },
             secondary: {
-                main: '#fffefd',
+                main: '#fffefd'
             },
             text: {
-                main: '#000000',
+                main: '#000000'
+            },
+            bg: {
+                main: '#202020'
             }
         },
         typography: {
