@@ -50,7 +50,7 @@ function Characters(props) {
             </Grid>
             {
                 searchValue.length != 0 && 
-                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
+                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4}>
                     <SearchResult 
                         searchValue={searchValue}
                     />

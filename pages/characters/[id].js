@@ -1,8 +1,10 @@
 import { useRouter } from "next/router"
 
+import CharacterContent from "../../components/CharacterContent"
+
 import {Grid, Typography } from "@mui/material"
 
-function Character({ data }) {
+function Character({ characterData, comicsData, eventsData, seriesData }) {
     const router = useRouter()
 
     if(router.isFallback) {
@@ -13,7 +15,14 @@ function Character({ data }) {
         )
     }
     
-    return <Typography variant="h2" color="secondary">{JSON.stringify(data.results)}</Typography>  
+    return (
+        <CharacterContent 
+            character={characterData.results[0]}
+            comics={comicsData.results}
+            events={eventsData.results}
+            series={seriesData.results}
+        />
+    )
 }
 
 export default Character
@@ -33,12 +42,24 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`http://localhost:3000/api/character/${params.id}`)
-    const data = await res.json()
+    const characterData = await fetch(`http://localhost:3000/api/character/${params.id}`)
+                                .then(result => result.json())
+    
+    const comicsData = await fetch(`http://localhost:3000/api/comics/${params.id}`)
+                                .then(result => result.json())
+    
+    const eventsData = await fetch(`http://localhost:3000/api/events/${params.id}`)
+                                .then(result => result.json())
 
+    const seriesData = await fetch(`http://localhost:3000/api/series/${params.id}`)
+                                .then(result => result.json())
+    
     return {
         props: {
-            data
+            characterData,
+            comicsData,
+            eventsData,
+            seriesData
         },
         revalidate: 90,
     }

@@ -7,7 +7,7 @@ async function fetchData(id) {
     const privateKey = process.env.PRIVATE_KEY
     const hash = md5(timestamp+privateKey+publicKey)
 
-    const res = await fetch(`${base}/${id}?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`)
+    const res = await fetch(`${base}/characters/${id}?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`)
     const data = await res.json()
 
     return data

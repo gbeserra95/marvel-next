@@ -9,7 +9,7 @@ function Content({ data, page, onChange }) {
     return (
         <>
             {data ? 
-                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
+                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4}>
                     {React.Children.toArray(
                         data?.results?.map(character =>
                             <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
