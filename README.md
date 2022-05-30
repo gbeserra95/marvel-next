@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">!
+    <img src="https://user-images.githubusercontent.com/47508755/170922531-598bb654-eea4-4804-aeb3-06e876619092.png" alt="Marvel Next home screenshot" />
+    <p>A Next.js application using Marvel API developed for study purposes</p>
+</div>
 
-## Getting Started
+<div align="center">
+    <a href="https://marvel-next-mu.vercel.app/">View Demo</a>
+</div>
 
-First, run the development server:
+## About
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+As a fan of all Marvel movies and a student of software development, I decided to apply some of the concepts I have learned so far about Next, React, Third Parties API fetching and Material UI components library. So, play with this website to get some information about your favorite characters from Marvel.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*Attention: In the free version of the using of Marvel Developer API, I am only able to make 3.000 calls per day, so, if you visit the site and do not work properly, please, check again later, otherwise, create your own developer account at https://developer.marvel.com/, download this repository and use your own keys for the API calls. *
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Built with
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- [Next.js](https://nextjs.org/)
+- [Marvel Developer API](https://developer.marvel.com/documentation/getting_started)
+- [Material UI](https://mui.com/pt/)
+- [React Query](https://react-query.tanstack.com/)
+- Deployed with [Vercel](https://vercel.com/docs)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repo with `git clone https://github.com/gbeserra95/marvel-next.git`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install yarn packages with `yarn install`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. Run `yarn dev`
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Distributed under the MIT License.<br>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+See `LICENSE.txt` for more information.
+
+## Author
+
+Created by [Gabriel Beserra](https://github.com/gbeserra95).
+
+Find me on [LinkedIn](https://www.linkedin.com/in/-gabrielbeserra/)!
+
+Cheers! 🍻
+
+<div align="right">
+    <a href="#">back to top</a>
+</div>
