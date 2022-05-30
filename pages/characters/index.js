@@ -33,7 +33,7 @@ function Characters(props) {
 
     const { data } = useQuery(
         ["characters", page],
-        async () => fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/characters?page=${page}`)
+        async () => fetch(`/api/characters?page=${page}`)
             .then(result => result.json()),
         {
             keepPreviousData: true,
@@ -89,7 +89,7 @@ export async function getServerSideProps(context) {
     await queryClient.prefetchQuery(
         ["characters", page],
         async () => 
-            await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/characters?page=${page}`)
+            await fetch(`/api/characters?page=${page}`)
                 .then(result => result.json())
     )
 
