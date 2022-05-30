@@ -11,7 +11,7 @@
 
 As a fan of all Marvel movies and a student of software development, I decided to apply some of the concepts I have learned so far about Next, React, Third Parties API fetching and Material UI components library. So, play with this website to get some information about your favorite characters from Marvel.
 
-*Attention: In the free version of the using of Marvel Developer API, I am only able to make 3.000 calls per day, so, if you visit the site and do not work properly, please, check again later, otherwise, create your own developer account at https://developer.marvel.com/, download this repository and use your own keys for the API calls*
+*Attention: In the free usage of Marvel Developer API, I am only able to make 3.000 calls per day, so, if you visit the site and do not work properly, please, check again later, otherwise, create your own developer account at https://developer.marvel.com/, download this repository and use your own keys for the API calls*
 
 ## Built with
 
