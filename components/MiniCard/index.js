@@ -4,7 +4,7 @@ import * as S from "./styles"
 
 function MiniCard({ data, width = "112px", height="160px" }) {
     return(
-        <a href={`${data.urls[0].url}`} target="_blank">
+        <a href={`${data.urls[0].url}`} target="_blank" rel="noreferrer">
             <S.Container>
                 <Image 
                     src={`${data.thumbnail.path}.${data.thumbnail.extension}`}

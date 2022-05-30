@@ -3,7 +3,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 export const ImageWrapper = styled.div`
     position: relative;
-    width: 300px;
+    width: min(100%, 340px);
     height: 450px;
 `
 

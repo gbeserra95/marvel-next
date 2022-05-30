@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
 import { dehydrate, QueryClient, useQuery } from "react-query"
 
@@ -8,7 +8,15 @@ import StyledTextField from "../../components/StyledTextField"
 import SearchResult from "../../components/SearchResult"
 import Content from "../../components/Content"
 
+import { MenuContext } from "../../context/MenuContext"
+
 function Characters(props) {   
+    const { setIsOpen } = useContext(MenuContext)
+
+    useEffect(() => {
+      setIsOpen(false)
+    }, [setIsOpen])
+
     // React Query search setup 
     const [searchValue, setSearchValue] = useState("")
 
@@ -25,7 +33,7 @@ function Characters(props) {
 
     const { data } = useQuery(
         ["characters", page],
-        async () => fetch(`/api/characters?page=${page}`)
+        async () => fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters?page=${page}`)
             .then(result => result.json()),
         {
             keepPreviousData: true,
@@ -41,7 +49,7 @@ function Characters(props) {
 
     return (
         <Container maxWidth="lg">
-            <Grid item container xs={12}>
+            <Grid item container xs={12} paddingY={4} justifyContent={{xs: "center", sm: "center", md: "flex-start"}}>
                 <StyledTextField 
                     type="text"
                     onChange={(event) => setSearchValue(event.target.value)}
@@ -50,7 +58,7 @@ function Characters(props) {
             </Grid>
             {
                 searchValue.length != 0 && 
-                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4}>
+                <Grid container minHeight="calc(100vh - 288px)" alignItems="center" justifyContent={{xs: "center", sm: "center", md: "flex-start"}}>
                     <SearchResult 
                         searchValue={searchValue}
                     />
@@ -81,7 +89,7 @@ export async function getServerSideProps(context) {
     await queryClient.prefetchQuery(
         ["characters", page],
         async () => 
-            await fetch(`/api/characters?page=${page}`)
+            await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters?page=${page}`)
                 .then(result => result.json())
     )
 

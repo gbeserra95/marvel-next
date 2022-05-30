@@ -1,4 +1,6 @@
+
 import { QueryClient, QueryClientProvider, Hydrate } from "react-query"
+import { MenuProvider } from "../context/MenuContext"
 
 import Layout from '../components/Layout'
 
@@ -14,9 +16,11 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <ThemeProvider theme={theme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <MenuProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </MenuProvider>
         </ThemeProvider>
       </Hydrate>
     </QueryClientProvider>

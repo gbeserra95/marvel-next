@@ -1,15 +1,26 @@
 import Image from "next/image"
 
-import { Container, Grid, Typography } from "@mui/material"
+import { Container, Grid, Typography, useMediaQuery } from "@mui/material"
+
+import { useEffect, useContext } from "react"
+import { MenuContext } from "../context/MenuContext"
 
 function About() {
+    const { setIsOpen } = useContext(MenuContext)
+
+    useEffect(() => {
+      setIsOpen(false)
+    }, [setIsOpen])
+
+    const lowerThanSm = useMediaQuery(theme => theme.breakpoints.down('sm'))
+
     return(
         <Container maxWidth="lg">
             <Grid container minHeight="calc(100vh - 112px)" padding={4} spacing={4} alignItems="center">
-                <Grid item container height="512px" xs={12} sm={12} md={8} position="relative" justifyContent="center">
+                <Grid item container height={lowerThanSm ? "300px" : "512px"} xs={12} sm={12} md={8} position="relative" justifyContent="center">
                     <Image 
                         src="/images/spider-man.jpg"
-                        width="960px"
+                        width="760px"
                         height="100%"
                         alt="Spider-man reading a comic book while climbing a brick wall"
                     />

@@ -32,25 +32,25 @@ theme = createTheme(theme,
         typography: {
             h1: {
                 fontSize: "36px",
-                fontWeight: "bold",
+                fontWeight: "600",
                 margin: "0 auto",
                 [theme.breakpoints.down('md')]: {
-                    fontSize: "24px",
+                    fontSize: "20px",
                 }
             },
             h2: {
                 fontSize: "20px",
-                fontWeight: "bold",
+                fontWeight: "600",
                 margin: "0 auto",
                 [theme.breakpoints.down('md')]: {
-                    fontSize: "18px",
+                    fontSize: "16px",
                 }
             },
             p: {
                 fontSize: "18px",
                 margin: "0 auto",
                 [theme.breakpoints.down('md')]: {
-                    fontSize: "16px",
+                    fontSize: "14px",
                 }
             }
         }

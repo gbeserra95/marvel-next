@@ -18,7 +18,6 @@ export const Container = styled.div`
         padding: 0.25rem 0.5rem;
         border: none;
         background-color: transparent;
-        color: orange;
 
         &::placeholder {
             color: darkgrey;

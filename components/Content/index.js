@@ -1,11 +1,13 @@
 import React from "react"
 
-import { Grid, Pagination, Typography } from "@mui/material"
+import { Grid, Pagination, Typography, useMediaQuery } from "@mui/material"
 import Card from "../Card"
 
 import theme from "../../theme"
 
 function Content({ data, page, onChange }) {
+    const lowerThanMd = useMediaQuery(theme => theme.breakpoints.down('md'))
+
     return (
         <>
             {data ? 
@@ -25,11 +27,13 @@ function Content({ data, page, onChange }) {
                             className='pagination'
                             page={page}
                             onChange={onChange}
+                            size={lowerThanMd ? "small" : "medium"}
                             sx={{
                                 ".MuiPaginationItem-previousNext": {
                                     backgroundColor: theme.palette.primary.main,
                                     color: theme.palette.secondary.main,
                                     borderColor: theme.palette.primary.main,
+
                                     '&:hover': {
                                         filter: "brightness(120%)"
                                     }
@@ -39,10 +43,12 @@ function Content({ data, page, onChange }) {
                                     color: theme.palette.secondary.main,
                                     borderColor: theme.palette.primary.main,
                                     transition: "0.2s",
-        
+                                    
                                     '&:hover': {
                                         backgroundColor: theme.palette.primary.main
                                     }
+
+                                    
                                 },
                                 ".MuiPaginationItem-page.Mui-selected": {
                                     backgroundColor: theme.palette.primary.main,
@@ -59,13 +65,16 @@ function Content({ data, page, onChange }) {
                     </Grid>
                 </Grid>
                 :
-                <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4} alignItems="center">
-                    <Typography 
-                        variant="h2" 
-                        color="secondary"
-                    >
-                        Loading...
-                    </Typography>
+                <Grid container minHeight="calc(100vh - 288px)">
+                    <Grid item container xs={12} alignItems="center" justifyContent="center">
+                        <Typography 
+                            variant="h2" 
+                            color="secondary"
+                            textAlign="center"
+                        >
+                            Loading...
+                        </Typography>
+                    </Grid>
                 </Grid>
             }
         

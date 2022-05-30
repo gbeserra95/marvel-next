@@ -1,4 +1,5 @@
 import { useRouter } from "next/router"
+import { fetchCharacters, fetchCharacterById, fetchComicsById, fetchEventsById, fetchSeriesById } from "../../helpers/clientSideAPIs"
 
 import CharacterContent from "../../components/CharacterContent"
 
@@ -28,8 +29,7 @@ function Character({ characterData, comicsData, eventsData, seriesData }) {
 export default Character
 
 export async function getStaticPaths() {
-    const res = await fetch('http://localhost:3000/api/characters/')
-    const data = await res.json()
+    const data = await fetchCharacters()
 
     const paths = data.results.map((character) => ({
         params: { id: character.id.toString()}
@@ -42,17 +42,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const characterData = await fetch(`http://localhost:3000/api/character/${params.id}`)
-                                .then(result => result.json())
+    const characterData = await fetchCharacterById(params.id)
     
-    const comicsData = await fetch(`http://localhost:3000/api/comics/${params.id}`)
-                                .then(result => result.json())
+    const comicsData = await fetchComicsById(params.id)
     
-    const eventsData = await fetch(`http://localhost:3000/api/events/${params.id}`)
-                                .then(result => result.json())
+    const eventsData = await fetchEventsById(params.id)
 
-    const seriesData = await fetch(`http://localhost:3000/api/series/${params.id}`)
-                                .then(result => result.json())
+    const seriesData = await fetchSeriesById(params.id)
     
     return {
         props: {
