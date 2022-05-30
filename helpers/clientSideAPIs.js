@@ -8,36 +8,76 @@ const hash = md5(timestamp+privateKey+publicKey)
 const limit = 24
 
 export async function fetchCharacters() {
-    const res = await fetch(`${base}/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${limit}`)
-    const data = await res.json()
+    const options = {
+		method: 'GET',
+		url: `${base}/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${limit}`
+	}
 
-    return data.data
+	try {
+		const response = await axios(options)
+		return response.json()
+	} catch (error) {
+		// Sends error to the client side
+		return error.response.json()
+	}
 }
 
 export async function fetchCharacterById(id) {
-    const res = await fetch(`${base}/characters/${id}?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`)
-    const data = await res.json()
+    const options = {
+		method: 'GET',
+		url: `${base}/characters/${id}?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`
+	}
 
-    return data.data
+	try {
+		const response = await axios(options)
+		return response.json()
+	} catch (error) {
+		// Sends error to the client side
+		return error.response.json()
+	}
 }
 
 export async function fetchComicsById(id) {
-    const res = await fetch(`${base}/characters/${id}/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`)
-    const data = await res.json()
+    const options = {
+		method: 'GET',
+		url: `${base}/characters/${id}/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`
+	}
 
-    return data.data
+	try {
+		const response = await axios(options)
+		return response.json()
+	} catch (error) {
+		// Sends error to the client side
+		return error.response.json()
+	}
 }
 
 export async function fetchEventsById(id) {
-    const res = await fetch(`${base}/characters/${id}/events?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`)
-    const data = await res.json()
+    const options = {
+		method: 'GET',
+		url: `${base}/characters/${id}/events?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`
+	}
 
-    return data.data
+	try {
+		const response = await axios(options)
+		return response.json()
+	} catch (error) {
+		// Sends error to the client side
+		return error.response.json()
+	}
 }
 
 export async function fetchSeriesById(id) {
-    const res = await fetch(`${base}/characters/${id}/series?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`)
-    const data = await res.json()
+    const options = {
+		method: 'GET',
+		url: `${base}/characters/${id}/series?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`
+	}
 
-    return data.data
+	try {
+		const response = await axios(options)
+		return response.json()
+	} catch (error) {
+		// Sends error to the client side
+		return error.response.json()
+	}
 }

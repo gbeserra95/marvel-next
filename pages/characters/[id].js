@@ -29,34 +29,45 @@ function Character({ characterData, comicsData, eventsData, seriesData }) {
 export default Character
 
 export async function getStaticPaths() {
-    const data = await fetchCharacters()
-
-    const paths = data.results.map((character) => ({
-        params: { id: character.id.toString()}
-    }))
-
-    return {
-        paths,
-        fallback: 'blocking'
+    try {
+        const data = await fetchCharacters()
+    
+        const paths = data.results.map((character) => ({
+            params: { id: character.id.toString()}
+        }))
+    
+        return {
+            paths,
+            fallback: 'blocking'
+        }
+    } catch(error) {
+        return {
+            paths: [],
+            fallback: 'blocking'
+        }
     }
 }
 
 export async function getStaticProps({ params }) {
-    const characterData = await fetchCharacterById(params.id)
+    try {
+        const characterData = await fetchCharacterById(params.id)
+        
+        const comicsData = await fetchComicsById(params.id)
+        
+        const eventsData = await fetchEventsById(params.id)
     
-    const comicsData = await fetchComicsById(params.id)
-    
-    const eventsData = await fetchEventsById(params.id)
-
-    const seriesData = await fetchSeriesById(params.id)
-    
-    return {
-        props: {
-            characterData,
-            comicsData,
-            eventsData,
-            seriesData
-        },
-        revalidate: 90,
+        const seriesData = await fetchSeriesById(params.id)
+        
+        return {
+            props: {
+                characterData,
+                comicsData,
+                eventsData,
+                seriesData
+            },
+            revalidate: 90,
+        }
+    } catch(error) {
+        return { notFound: true }
     }
 }

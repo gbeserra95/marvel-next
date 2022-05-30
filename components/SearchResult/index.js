@@ -1,3 +1,5 @@
+import axios from "axios"
+
 import useDebounce from "../../hooks/useDebounce"
 import { useQuery } from "react-query"
 
@@ -8,10 +10,12 @@ import { Grid, Typography } from "@mui/material"
 function SearchResult({ searchValue }) {
     const debouncedSearchValue = useDebounce(searchValue, 300)
 
-    const { isLoading, isError, isSuccess, data } = useQuery(
+    const { isLoading, isError, isSuccess, data, error } = useQuery(
         ["searchCharacters", debouncedSearchValue],
-        async () => fetch(`/api/characters/${debouncedSearchValue}`)
-            .then(result => result.json()),
+        async () => {
+            const response = await axios.get(`/api/characters/${debouncedSearchValue}`)
+            return response.json()
+        },
         {
             enabled: debouncedSearchValue.length > 0
         }
@@ -22,7 +26,8 @@ function SearchResult({ searchValue }) {
     }
 
     if(isError){
-        return <Typography variant="h2" color="secondary" textAlign="center">This code is not working! 😣 <br/> Go see Doctor Strange so he can make a spell to fix it!</Typography>
+        console.log(data)
+        return <Typography variant="h2" color="secondary" textAlign="center">Sorry! 😣 <br/>{error.response.data.message}</Typography>
     }
 
     if(isSuccess) {

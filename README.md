@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://user-images.githubusercontent.com/47508755/170922531-598bb654-eea4-4804-aeb3-06e876619092.png" alt="Marvel Next home screenshot" />
+    <img src="/public/images/logo.png" alt="Marvel Next logo" />
     <p>A Next.js application using Marvel API developed for study purposes</p>
 </div>
 
@@ -27,7 +27,14 @@ _Attention: In the free usage of Marvel Developer API, I am only able to make 3.
 
 2. Install yarn packages with `yarn install`
 
-3. Run `yarn dev`
+3. Create a `.env.local` file and edit the following environment variables:
+
+- NEXT_PUBLIC_VERCEL_URL=http://localhost:3000
+- API_BASE=https://gateway.marvel.com/v1/public
+- PRIVATE_KEY=[your own private key]
+- PUBLIC_KEY=[your own public key]
+
+4. Run `yarn dev`
 
 ## License
 

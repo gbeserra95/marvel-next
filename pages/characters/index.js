@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"
+import axios from "axios"
 import { useRouter } from "next/router"
 import { dehydrate, QueryClient, useQuery } from "react-query"
 
@@ -31,14 +32,16 @@ function Characters(props) {
         setPage(parseInt(router.query.page) || 1)
       }, [router]);
 
-    const { data } = useQuery(
+    const data = useQuery(
         ["characters", page],
-        async () => fetch(`/api/characters?page=${page}`)
-            .then(result => result.json()),
+        async () => {
+            const response = await axios.get(`/api/characters?page=${page}`)
+            return response.json()
+        },
         {
             keepPreviousData: true,
             refetchOnMount: false,
-            refetchOnWindowFocus: false,
+            refetchOnWindowFocus: false
         }
     )
 
@@ -88,9 +91,10 @@ export async function getServerSideProps(context) {
     const queryClient = new QueryClient()
     await queryClient.prefetchQuery(
         ["characters", page],
-        async () => 
-            await fetch(`/api/characters?page=${page}`)
-                .then(result => result.json())
+        async () => {
+            const response = await axios.get(`/api/characters?page=${page}`)
+            return response.json()
+        }
     )
 
     return {
