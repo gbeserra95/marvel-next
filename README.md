@@ -1,4 +1,4 @@
-<div align="center">!
+<div align="center">
     <img src="https://user-images.githubusercontent.com/47508755/170922531-598bb654-eea4-4804-aeb3-06e876619092.png" alt="Marvel Next home screenshot" />
     <p>A Next.js application using Marvel API developed for study purposes</p>
 </div>
