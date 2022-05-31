@@ -8,16 +8,17 @@ import theme from "../../theme"
 function Content({ data, page, onChange }) {
     const lowerThanMd = useMediaQuery(theme => theme.breakpoints.down('md'))
     if(data?.isSuccess) {
+        console.log(data)
         return (
             <Grid container minHeight="calc(100vh - 192px)" padding={4} spacing={4}>
-                {data?.results?.map(character =>
+                {data.data.data.data.results.map(character =>
                     <Grid item container xs={12} sm={4} md={3} lg={2} justifyContent="center" key={'grid-item' + character.id}>
                         <Card character={character} key={character.id} />
                     </Grid>
                 )}
                 <Grid item container xs={12} justifyContent="center">
                     <Pagination
-                        count={parseInt(data?.total / data?.limit) || 1}
+                        count={parseInt(data.data.data.data.total / data.data.data.data.limit) || 1}
                         variant='outlined'
                         shape="rounded"
                         className='pagination'

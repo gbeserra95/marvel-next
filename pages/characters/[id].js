@@ -18,10 +18,10 @@ function Character({ characterData, comicsData, eventsData, seriesData }) {
     
     return (
         <CharacterContent 
-            character={characterData.results[0]}
-            comics={comicsData.results}
-            events={eventsData.results}
-            series={seriesData.results}
+            character={characterData.data.results[0]}
+            comics={comicsData.data.results}
+            events={eventsData.data.results}
+            series={seriesData.data.results}
         />
     )
 }
@@ -29,45 +29,37 @@ function Character({ characterData, comicsData, eventsData, seriesData }) {
 export default Character
 
 export async function getStaticPaths() {
-    try {
-        const data = await fetchCharacters()
-    
-        const paths = data.results.map((character) => ({
-            params: { id: character.id.toString()}
-        }))
-    
-        return {
-            paths,
-            fallback: 'blocking'
-        }
-    } catch(error) {
-        return {
-            paths: [],
-            fallback: 'blocking'
-        }
+    const data = await fetchCharacters()
+
+    const paths = data.data.results.map((character) => ({
+        params: { id: character.id.toString()}
+    }))
+
+    return {
+        paths,
+        fallback: 'blocking'
     }
 }
 
 export async function getStaticProps({ params }) {
-    try {
-        const characterData = await fetchCharacterById(params.id)
-        
-        const comicsData = await fetchComicsById(params.id)
-        
-        const eventsData = await fetchEventsById(params.id)
+    const characterData = await fetchCharacterById(params.id)
     
-        const seriesData = await fetchSeriesById(params.id)
-        
-        return {
-            props: {
-                characterData,
-                comicsData,
-                eventsData,
-                seriesData
-            },
-            revalidate: 90,
-        }
-    } catch(error) {
+    if (characterData.code !== 200)
         return { notFound: true }
+
+    const comicsData = await fetchComicsById(params.id)
+    
+    const eventsData = await fetchEventsById(params.id)
+
+    const seriesData = await fetchSeriesById(params.id)
+    
+    return {
+        props: {
+            characterData,
+            comicsData,
+            eventsData,
+            seriesData
+        },
+        revalidate: 90
     }
 }

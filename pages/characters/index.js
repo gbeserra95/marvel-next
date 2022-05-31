@@ -36,7 +36,7 @@ function Characters(props) {
         ["characters", page],
         async () => {
             const response = await axios.get(`/api/characters?page=${page}`)
-            return response.json()
+            return response
         },
         {
             keepPreviousData: true,
@@ -93,7 +93,7 @@ export async function getServerSideProps(context) {
         ["characters", page],
         async () => {
             const response = await axios.get(`/api/characters?page=${page}`)
-            return response.json()
+            return response
         }
     )
 

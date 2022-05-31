@@ -14,7 +14,7 @@ function SearchResult({ searchValue }) {
         ["searchCharacters", debouncedSearchValue],
         async () => {
             const response = await axios.get(`/api/characters/${debouncedSearchValue}`)
-            return response.json()
+            return response
         },
         {
             enabled: debouncedSearchValue.length > 0
@@ -26,17 +26,16 @@ function SearchResult({ searchValue }) {
     }
 
     if(isError){
-        console.log(data)
         return <Typography variant="h2" color="secondary" textAlign="center">Sorry! 😣 <br/>{error.response.data.message}</Typography>
     }
 
     if(isSuccess) {
-        if(data?.count === 0) {
+        if(data.data.data.count === 0) {
             return <Typography variant="h2" color="secondary" textAlign="center">Your character is probably lost in some universe. We couldn&apos;t find them. 😣 </Typography>
         }
         
         return (
-            data?.results?.map(character => 
+            data.data.data.results.map(character => 
                 <Grid item container xs={12} sm={4} md={3} lg={2} padding={4} justifyContent="center" key={"searched-character-grid-item-" + character.id}>
                     <Card character={character} key={"searched-character-" + character.id}/>
                 </Grid>
