@@ -29,10 +29,10 @@ _Attention: In the free usage of Marvel Developer API, I am only able to make 3.
 
 3. Create a `.env.local` file and edit the following environment variables:
 
-- NEXT_PUBLIC_VERCEL_URL=http://localhost:3000
-- API_BASE=https://gateway.marvel.com/v1/public
-- PRIVATE_KEY=[your own private key]
-- PUBLIC_KEY=[your own public key]
+   - `NEXT_PUBLIC_VERCEL_URL`=http://localhost:3000
+   - `API_BASE`=https://gateway.marvel.com/v1/public
+   - `PRIVATE_KEY`=[your own private key]
+   - `PUBLIC_KEY`=[your own public key]
 
 4. Run `yarn dev`
 

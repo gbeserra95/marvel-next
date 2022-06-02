@@ -6,6 +6,7 @@ function Layout({ children }){
     return (
         <>
             <Head>
+                <title>Marvel Next | Home</title>
                 <link rel="shortcut icon" href="/favicon.ico" />
             </Head>
             <Navbar />
